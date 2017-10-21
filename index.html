@@ -4,43 +4,44 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="robots" content="noindex, nofollow">
   <meta name="googlebot" content="noindex, nofollow">
-  
-    <script type="text/javascript" src="//rawgit.com/amark/gun/master/gun.js"></script>
-    <script type="text/javascript" src="//rawgit.com/cytoscape/cytoscape.js/master/dist/cytoscape.min.js"></script>
-    <script type="text/javascript" src="//rawgit.com/cytoscape/cytoscape.js-cose-bilkent/master/cytoscape-cose-bilkent.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/lmangani/serve-gundb/master/gGraph-v2.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/lmangani/serve-gundb/master/gIntrospect.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/lmangani/serve-gundb/master/gSetup.js"></script>
-  
-    <link rel="stylesheet" type="text/css" href="https://rawgit.com/1j01/simple-console/gh-pages/simple-console.css">
-    <script type="text/javascript" src="https://rawgit.com/1j01/simple-console/gh-pages/simple-console.js"></script>
 
+      <script type="text/javascript" src="//rawgit.com/amark/gun/master/gun.js"></script>
+      <script type="text/javascript" src="//rawgit.com/cytoscape/cytoscape.js/master/dist/cytoscape.min.js"></script>
+      <script type="text/javascript" src="//rawgit.com/cytoscape/cytoscape.js-cose-bilkent/master/cytoscape-cose-bilkent.js"></script>
+      <script type="text/javascript" src="https://rawgit.com/JosePedroDias/serve-gundb/master/gGraph-v2.js"></script>
+      <script type="text/javascript" src="https://rawgit.com/JosePedroDias/serve-gundb/master/gIntrospect.js"></script>
+      <script type="text/javascript" src="https://rawgit.com/JosePedroDias/serve-gundb/master/gSetup.js"></script>
+
+      <link rel="stylesheet" type="text/css" href="https://rawgit.com/1j01/simple-console/gh-pages/simple-console.css">
+      <script type="text/javascript" src="https://rawgit.com/1j01/simple-console/gh-pages/simple-console.js"></script>
+    
   <style type="text/css">
      html, body {
                 height: 100%;
                 width: 100%;
             }
             body {
-                font-family: sans-serif;
-                overflow: hidden;
-                padding: 0;
-                margin: 0;
+               height: 100%;
+               margin: 0;
+               display: flex;
+               flex: 1;
             }
             #graph {
+                margin-top: 10px;
                 width: 130%;
                 height: 100%;
                 display: block;
             }
             .simple-console {
-		position: absolute;
-                right:  2em;
                 margin-top: 50px;
-                width: 30%;
+                width: 50%;
                 height: 100%;
                 display: block;
+                
             }
             pre {
               font-weight: bold;
+              z-index:9999999;
             }
             code {
                 position: absolute;
@@ -48,6 +49,7 @@
                 bottom: 1.5em;
                 pointer-events: none;
             }
+
             .buttons {
                 position: absolute;
                 right:  1em;
@@ -56,16 +58,16 @@
             }
   </style>
 
-  <title>GunDB Graph</title>
+  <title>GunDB Graph Live</title>
 
-  <script type='text/javascript'>//<![CDATA[
-  window.onload=function(){
-  var gEx1 = {
-     setUpExample: function() {
-        g.get('person/john').put({name:'john doe', age:35, gender:'m'});
-        g.get('person/anne').put({name:'anne smith', age:32, gender:'f'});
-    }
-};
+	<script type='text/javascript'>//<![CDATA[
+	window.onload=function(){
+	var gEx1 = {
+	    setUpExample: function() {
+		g.get('person/john').put({name:'john doe', age:35, gender:'m'});
+		g.get('person/anne').put({name:'anne smith', age:32, gender:'f'});
+	    }
+	};
  
 gSetup(false, true);
 gEx1.setUpExample();
@@ -74,7 +76,7 @@ var con = new SimpleConsole({
 	handleCommand: function(command){
 		try {
 			con.log(eval(command));
-                        renderGraph()
+      renderGraph()
 		} catch(error) {
 			con.error(error);
 		}
@@ -120,11 +122,9 @@ setTimeout(function() {
             <button onclick="renderGraph()">update graph</button>
         </div>
 
-        <code>Marry John and Anne, with Gun:
-           <pre>
-             g.get('person/anne').get('married_to').put( g.get('person/john'));
-          </pre>
-        </code>
+ <code>Marry John and Anne: <pre>
+g.get('person/anne').get('married_to').put( g.get('person/john'));
+        </pre></code>
   
   <script>
   // tell the embed parent frame the height of the content
