@@ -5,7 +5,6 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="googlebot" content="noindex, nofollow">
   
-    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
     <script type="text/javascript" src="//rawgit.com/amark/gun/master/gun.js"></script>
     <script type="text/javascript" src="//rawgit.com/cytoscape/cytoscape.js/master/dist/cytoscape.min.js"></script>
     <script type="text/javascript" src="//rawgit.com/cytoscape/cytoscape.js-cose-bilkent/master/cytoscape-cose-bilkent.js"></script>
@@ -33,15 +32,15 @@
                 display: block;
             }
             .simple-console {
+		position: absolute;
+                right:  2em;
                 margin-top: 50px;
-                width: 50%;
+                width: 30%;
                 height: 100%;
                 display: block;
-                
             }
             pre {
               font-weight: bold;
-              z-index:9999999;
             }
             code {
                 position: absolute;
@@ -70,13 +69,12 @@
  
 gSetup(false, true);
 gEx1.setUpExample();
-    
 var con = new SimpleConsole({
 	placeholder: "Gun Console (g)",
 	handleCommand: function(command){
 		try {
 			con.log(eval(command));
-      renderGraph()
+                        renderGraph()
 		} catch(error) {
 			con.error(error);
 		}
