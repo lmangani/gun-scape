@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+    <script type="text/javascript" src="//rawgit.com/amark/gun/master/gun.js"></script>
+    <script type="text/javascript" src="//rawgit.com/cytoscape/cytoscape.js/master/dist/cytoscape.min.js"></script>
+    <script type="text/javascript" src="//rawgit.com/cytoscape/cytoscape.js-cose-bilkent/master/cytoscape-cose-bilkent.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/JosePedroDias/serve-gundb/master/gGraph-v2.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/JosePedroDias/serve-gundb/master/gIntrospect.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/JosePedroDias/serve-gundb/master/gSetup.js"></script>
+
+  <style type="text/css">
+     html, body {
+                height: 100%;
+                width: 100%;
+            }
+            body {
+                font-family: sans-serif;
+                overflow: hidden;
+                padding: 0;
+                margin: 0;
+            }
+            #graph {
+                width: 130%;
+                height: 100%;
+                display: block;
+            }
+            code {
+                font-weight: bold;
+                position: absolute;
+                right:  2em;
+                bottom: 1.5em;
+                pointer-events: none;
+            }
+            .buttons {
+                position: absolute;
+                right:  1em;
+                top: 0.75em;
+                z-index: 100;
+            }
+  </style>
+
+  <title>GunDB Graph by lmangani</title>
+
+  <script type='text/javascript'>//<![CDATA[
+  window.onload=function(){
+  var gEx1 = {
+    setUpExample: function() {
+        // nodes
+        var N_JOHN = 'person/john';
+        var N_ANNE = 'person/anne';
+        var N_RICK = 'person/rick';
+        var N_ELSA = 'person/elsa';
+
+        // sets
+        var S_CHILDREN_JOHN_ANNE = 'set/children_of/person_john/person_anne';
+
+        // edges
+        var E_MARRIED = 'married_to';
+        var E_SIBLING = 'sibling_of';
+        var E_CHILDREN = 'children';
+        window.g = g;
+
+        g.get(N_JOHN).put({name:'john doe', age:35, gender:'m'});
+        g.get(N_ANNE).put({name:'anne smith', age:32, gender:'f'});
+
+        g.get(N_JOHN).get(E_MARRIED).put( g.get(N_ANNE) );
+        g.get(N_ANNE).get(E_MARRIED).put( g.get(N_JOHN) );
+
+        g.get(N_RICK).put({name:'rick doe', age:5, gender:'m'});
+        g.get(N_ELSA).put({name:'elsa doe', age:8, gender:'f'});
+        
+        g.get(N_RICK).get(E_SIBLING).put( g.get(N_ELSA) );
+        g.get(N_ELSA).get(E_SIBLING).put( g.get(N_RICK) );
+
+        g.get(S_CHILDREN_JOHN_ANNE).set( g.get(N_RICK) );
+        g.get(S_CHILDREN_JOHN_ANNE).set( g.get(N_ELSA) );
+
+        g.get(N_JOHN).get(E_CHILDREN).put( g.get(S_CHILDREN_JOHN_ANNE) );
+        g.get(N_ANNE).get(E_CHILDREN).put( g.get(S_CHILDREN_JOHN_ANNE) );
+    },
+    summonExample: function() {
+        g
+        .get('person/anne')
+        .get('person/rick')
+        .get('person/elsa')
+        .get('person/john')
+    }
+};
+ 
+gSetup(false, true);
+gEx1.setUpExample();
+            
+function resetData() {
+                g._.graph = {};
+                gi = gIntrospect(g);
+                renderGraph = gGraph(g, gi, '#graph');
+}
+
+function logData() {
+                gi.logAll();
+}
+
+setTimeout(function() {
+                var gi = gIntrospect(g);
+                window.gi = gi;
+                window.renderGraph = gGraph(g, gi, '#graph');
+}, 100);
+}//]]> 
+
+</script>
+
+  
+</head>
+
+<body>
+  <div id="graph"></div>
+
+        <div class="buttons">
+            <button onclick="resetData()">reset data</button>
+            <button onclick="logData()">log data</button>
+            <button onclick="renderGraph()">update graph</button>
+        </div>
+
+        <code><pre>
+open console (cmd/ctrl + alt + J) and use
+already initialized Gun instance at var g.
+        </pre></code>
+
+  
+  <script>
+  // tell the embed parent frame the height of the content
+  if (window.parent && window.parent.parent){
+    window.parent.parent.postMessage(["resultsFrame", {
+      height: document.body.getBoundingClientRect().height,
+      slug: "ca4womwf"
+    }], "*")
+  }
+</script>
+
+</body>
+</html>
