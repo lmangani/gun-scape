@@ -64,11 +64,16 @@
 	    setUpExample: function() {
 		g.get('person/john').put({name:'john doe', age:35, gender:'m'});
 		g.get('person/anne').put({name:'anne smith', age:32, gender:'f'});
+		    renderGraph()
+	    },
+	    setUpCouple: function() {
+		g.get('person/anne').get('married_to').put( g.get('person/john'));
+		    renderGraph()
 	    }
 	};
  
 gSetup(false, true);
-gEx1.setUpExample();
+
 var con = new SimpleConsole({
 	placeholder: "Gun Console (g)",
 	handleCommand: function(command){
@@ -115,7 +120,9 @@ setTimeout(function() {
   <div id="graph"></div>
 
         <div class="buttons">
-            <button onclick="renderGraph()">update graph</button>
+	    <button onclick="gEx1.setUpExample()">Add Pair</button>
+	    <button onclick="gEx1.setUpCouple()">Join Pair</button>
+            <button onclick="renderGraph()">Update Graph</button>
         </div>
 
  <code>Marry John and Anne: <pre>
