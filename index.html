@@ -8,9 +8,9 @@
       <script type="text/javascript" src="//rawgit.com/amark/gun/master/gun.js"></script>
       <script type="text/javascript" src="//rawgit.com/cytoscape/cytoscape.js/master/dist/cytoscape.min.js"></script>
       <script type="text/javascript" src="//rawgit.com/cytoscape/cytoscape.js-cose-bilkent/master/cytoscape-cose-bilkent.js"></script>
-      <script type="text/javascript" src="https://rawgit.com/JosePedroDias/serve-gundb/master/gGraph-v2.js"></script>
-      <script type="text/javascript" src="https://rawgit.com/JosePedroDias/serve-gundb/master/gIntrospect.js"></script>
-      <script type="text/javascript" src="https://rawgit.com/JosePedroDias/serve-gundb/master/gSetup.js"></script>
+      <script type="text/javascript" src="https://rawgit.com/lmangani/serve-gundb/master/gGraph-v2.js"></script>
+      <script type="text/javascript" src="https://rawgit.com/lmangani/serve-gundb/master/gIntrospect.js"></script>
+      <script type="text/javascript" src="https://rawgit.com/lmangani/serve-gundb/master/gSetup.js"></script>
 
       <link rel="stylesheet" type="text/css" href="https://rawgit.com/1j01/simple-console/gh-pages/simple-console.css">
       <script type="text/javascript" src="https://rawgit.com/1j01/simple-console/gh-pages/simple-console.js"></script>
@@ -74,7 +74,7 @@ var con = new SimpleConsole({
 	handleCommand: function(command){
 		try {
 			con.log(eval(command));
-      renderGraph()
+                        renderGraph()
 		} catch(error) {
 			con.error(error);
 		}
@@ -115,8 +115,6 @@ setTimeout(function() {
   <div id="graph"></div>
 
         <div class="buttons">
-            <button onclick="resetData()">reset data</button>
-            <button onclick="logData()">log data</button>
             <button onclick="renderGraph()">update graph</button>
         </div>
 
