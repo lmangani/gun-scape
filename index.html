@@ -60,7 +60,7 @@
 
 	<script type='text/javascript'>//<![CDATA[
 	window.onload=function(){
-	var gEx1 = {
+	window.gEx1 = {
 	    setUpExample: function() {
 		g.get('person/john').put({name:'john doe', age:35, gender:'m'});
 		g.get('person/anne').put({name:'anne smith', age:32, gender:'f'});
@@ -120,13 +120,13 @@ setTimeout(function() {
   <div id="graph"></div>
 
         <div class="buttons">
-	    <button onclick="gEx1.setUpExample()">Add Pair</button>
-	    <button onclick="gEx1.setUpCouple()">Join Pair</button>
+	    <button onclick="window.gEx1.setUpExample()">Add Pair</button>
+	    <button onclick="window.gEx1.setUpCouple()">Join Pair</button>
             <button onclick="renderGraph()">Update Graph</button>
         </div>
 
- <code>Marry John and Anne: <pre>
-g.get('person/anne').get('married_to').put( g.get('person/john'));
+ <code>Example Syntax: <pre>
+g.get('person/me').put({name: 'Lorenzo'});
         </pre></code>
   
   <script>
