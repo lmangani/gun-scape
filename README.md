@@ -1,4 +1,6 @@
 # gun-scape
-GunDB Graph Visualizer Demo based on [serve-gun](https://github.com/JosePedroDias/serve-gundb)
+GunDB Graph Visualizer & Editor Demo based on [serve-gun](https://github.com/JosePedroDias/serve-gundb)
 
-![image](https://user-images.githubusercontent.com/1423657/31855107-21afa306-b6a4-11e7-9c04-cd8f1c453788.png)
+### Shot-GunDB Wedding
+
+![ezgif com-optimize 29](https://user-images.githubusercontent.com/1423657/31855811-136fc9e2-b6b3-11e7-9b40-0b6e1a57ad29.gif)
