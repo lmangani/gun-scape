@@ -21,8 +21,8 @@ g.get('rtpengine').get('rtp').put(g.get('asterisk'));
 g.get('opensips').get('hep-sip').put(g.get('homer')); 
 g.get('asterisk').get('hep-sip').put(g.get('homer')); 
 g.get('rtpengine').get('hep-rtcp').put(g.get('homer')); 
-
 ```
+<img src="https://user-images.githubusercontent.com/1423657/31861056-e283d9f4-b725-11e7-8e77-faddca3bbaf8.png" width=500/>
 
 ### Credit
 This Demo is based on [serve-gun](https://github.com/JosePedroDias/serve-gundb)
