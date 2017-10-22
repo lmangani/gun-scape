@@ -6,14 +6,14 @@
   <meta name="googlebot" content="noindex, nofollow">
 
       <script type="text/javascript" src="//rawgit.com/amark/gun/master/gun.js"></script>
-      <script type="text/javascript" src="//rawgit.com/cytoscape/cytoscape.js/master/dist/cytoscape.min.js"></script>
-      <script type="text/javascript" src="//rawgit.com/cytoscape/cytoscape.js-cose-bilkent/master/cytoscape-cose-bilkent.js"></script>
-      <script type="text/javascript" src="https://rawgit.com/lmangani/serve-gundb/master/gGraph-v2.js"></script>
-      <script type="text/javascript" src="https://rawgit.com/lmangani/serve-gundb/master/gIntrospect.js"></script>
-      <script type="text/javascript" src="https://rawgit.com/lmangani/serve-gundb/master/gSetup.js"></script>
+      <script type="text/javascript" src="include/cytoscape.min.js"></script>
+      <script type="text/javascript" src="include/cytoscape-cose-bilkent.js"></script>
+      <script type="text/javascript" src="include/gGraph-v2.js"></script>
+      <script type="text/javascript" src="include/gIntrospect.js"></script>
+      <script type="text/javascript" src="include/gSetup.js"></script>
 
-      <link rel="stylesheet" type="text/css" href="https://rawgit.com/1j01/simple-console/gh-pages/simple-console.css">
-      <script type="text/javascript" src="https://rawgit.com/1j01/simple-console/gh-pages/simple-console.js"></script>
+      <link rel="stylesheet" type="text/css" href="include/simple-console.css">
+      <script type="text/javascript" src="include/simple-console.js"></script>
     
   <style type="text/css">
      html, body {
@@ -60,21 +60,27 @@
 
 	<script type='text/javascript'>//<![CDATA[
 	window.onload=function(){
-	var gEx1 = {
+	window.gEx1 = {
 	    setUpExample: function() {
-		g.get('person/john').put({name:'john doe', age:35, gender:'m'});
-		g.get('person/anne').put({name:'anne smith', age:32, gender:'f'});
+		g.get('person/john').put({name:'john doe', gender:'m'});
+		g.get('person/anne').put({name:'anne smith', gender:'f'});
+		    renderGraph()
+	    },
+	    setUpCouple: function() {
+		g.get('person/anne').get('married_to').put( g.get('person/john'));
+		    renderGraph()
 	    }
 	};
  
 gSetup(false, true);
-gEx1.setUpExample();
+
 var con = new SimpleConsole({
 	placeholder: "Gun Console (g)",
 	handleCommand: function(command){
 		try {
-			con.log(eval(command));
-                        renderGraph()
+			console.log(eval(command));
+			con.clear();
+                        renderGraph(); 
 		} catch(error) {
 			con.error(error);
 		}
@@ -89,13 +95,13 @@ document.body.appendChild(con.element);
 // show any uncaught errors
 con.handleUncaughtErrors();
             
-function resetData() {
+window.resetData = function() {
                 g._.graph = {};
                 gi = gIntrospect(g);
                 renderGraph = gGraph(g, gi, '#graph');
 }
 
-function logData() {
+window.logData = function() {
                 gi.logAll();
 }
 
@@ -115,11 +121,14 @@ setTimeout(function() {
   <div id="graph"></div>
 
         <div class="buttons">
-            <button onclick="renderGraph()">update graph</button>
+	    <button onclick="window.gEx1.setUpExample()">Add Pair</button>
+	    <button onclick="window.gEx1.setUpCouple()">Join Pair</button>
+            <button onclick="renderGraph()">Update Graph</button>
+	    <button onclick="window.resetData()">Clear Graph</button>
         </div>
 
- <code>Marry John and Anne: <pre>
-g.get('person/anne').get('married_to').put( g.get('person/john'));
+ <code>Example Syntax: <pre>
+g.get('person/me').put({name: 'Lorenzo'});
         </pre></code>
   
   <script>
