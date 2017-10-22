@@ -71,10 +71,11 @@
 		    renderGraph()
 	    },
 	    setUpChild: function(){
-		    g.get('max').put({name:'max'});
-		    g.get('set/children').set( g.get('max') );
-		    g.get('person/anne').get('children').put( g.get('set/children') );
-		    g.get('person/john').get('children').put( g.get('set/children') );
+		g.get('max').put({name:'max', gender:'m'});
+		g.get('set/children').set( g.get('max') );
+ 	        g.get('person/anne').get('children').put( g.get('set/children') );
+	        g.get('person/john').get('children').put( g.get('set/children') );
+		    renderGraph()
 	    }
 	};
  
@@ -133,7 +134,7 @@ setTimeout(function() {
 	    <button onclick="window.gEx1.setUpCouple()">Join Pair</button>
 	    <button onclick="window.gEx1.setUpChild()">Add Child</button> | 
             <button onclick="renderGraph()">Refresh</button>
-	    <button onclick="window.logData()">Dump</button>
+	    <!-- <button onclick="window.logData()">Log</button> -->
 	    <button onclick="window.resetData()">Clear</button>
         </div>
 
