@@ -3,7 +3,7 @@
 # Gun-scape 
 [GunDB](https://github.com/amark/gun) Cytoscape Graph Visualizer + Live Editor
 
-#### [Try the Live Demo](http://rawgit.com/lmangani/gun-scape/devel/index.html)
+#### [Try the Live Demo](http://rawgit.com/lmangani/gun-scape/master/index.html)
 
 ##### Example 
 Execute your own _"Shot-GunDB Wedding"_ and test all Gun [commands](http://gun.js.org/docs/get.html) in a snap:
