@@ -62,8 +62,8 @@
 	window.onload=function(){
 	window.gEx1 = {
 	    setUpExample: function() {
-		g.get('person/john').put({name:'john doe', age:35, gender:'m'});
-		g.get('person/anne').put({name:'anne smith', age:32, gender:'f'});
+		g.get('person/john').put({name:'john doe', gender:'m'});
+		g.get('person/anne').put({name:'anne smith', gender:'f'});
 		    renderGraph()
 	    },
 	    setUpCouple: function() {
@@ -78,8 +78,9 @@ var con = new SimpleConsole({
 	placeholder: "Gun Console (g)",
 	handleCommand: function(command){
 		try {
-			con.log(eval(command));
-                        renderGraph()
+			console.log(eval(command));
+			con.clear();
+                        renderGraph(); 
 		} catch(error) {
 			con.error(error);
 		}
@@ -94,13 +95,13 @@ document.body.appendChild(con.element);
 // show any uncaught errors
 con.handleUncaughtErrors();
             
-function resetData() {
+window.resetData = function() {
                 g._.graph = {};
                 gi = gIntrospect(g);
                 renderGraph = gGraph(g, gi, '#graph');
 }
 
-function logData() {
+window.logData = function() {
                 gi.logAll();
 }
 
@@ -123,6 +124,7 @@ setTimeout(function() {
 	    <button onclick="window.gEx1.setUpExample()">Add Pair</button>
 	    <button onclick="window.gEx1.setUpCouple()">Join Pair</button>
             <button onclick="renderGraph()">Update Graph</button>
+	    <button onclick="window.resetData()">Clear Graph</button>
         </div>
 
  <code>Example Syntax: <pre>
