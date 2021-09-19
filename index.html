@@ -65,11 +65,11 @@
 	    setUpExample: function() {
 		g.get('person/john').put({name:'john doe', gender:'m'});
 		g.get('person/anne').put({name:'anne smith', gender:'f'});
-		    renderGraph()
+		    window.refresh();
 	    },
 	    setUpCouple: function() {
 		g.get('person/anne').get('married_to').put( g.get('person/john'));
-		    renderGraph()
+		    window.refresh();
 	    },
 	    setUpChild: function(){
 		g.get('person/max').put({name:'max doe', gender:'m'});
@@ -79,7 +79,7 @@
 		g.get('person/min').get('sibling_to').put( g.get('person/max'));
  	        g.get('person/anne').get('children').put( g.get('set/children') );
 	        g.get('person/john').get('children').put( g.get('set/children') );
-		    renderGraph()
+		    window.refresh();
 	    }
 	};
  
@@ -115,12 +115,19 @@ window.resetData = function() {
 window.logData = function() {
                 gi.logAll();
 }
+		
+window.refresh = function(){
+  setTimeout(function() {
+    renderGraph()
+  }, 500);
+}		
 
 setTimeout(function() {
                 var gi = gIntrospect(g);
                 window.gi = gi;
                 window.renderGraph = gGraph(g, gi, '#graph');
 }, 100);
+		
 }//]]> 
 
 </script>
@@ -129,7 +136,202 @@ setTimeout(function() {
 </head>
 
 <body>
-  <a href="https://github.com/lmangani/gun-scape"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/8b6b8ccc6da3aa5722903da7b58eb5ab1081adee/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png"></a>	
+  <a href="https://github.com/lmangani/gun-scape"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/8b6b8ccc6da3aa5722903da7b58eb5ab1081adee/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png"></a>	<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="googlebot" content="noindex, nofollow" />
+
+    <script
+      type="text/javascript"
+      src="//rawgit.com/amark/gun/master/gun.js"
+    ></script>
+    <script type="text/javascript" src="include/cytoscape.min.js"></script>
+    <script
+      type="text/javascript"
+      src="include/cytoscape-cose-bilkent.js"
+    ></script>
+    <script type="text/javascript" src="include/gGraph-v2.js"></script>
+    <script type="text/javascript" src="include/gIntrospect.js"></script>
+    <script type="text/javascript" src="include/gSetup.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="include/simple-console.css" />
+    <script type="text/javascript" src="include/simple-console.js"></script>
+
+    <style type="text/css">
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+      }
+      body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex: 1;
+      }
+      #graph {
+        margin-top: 10px;
+        width: 70%;
+        height: 80%;
+      }
+      .simple-console {
+        margin-top: 50px;
+        width: 50%;
+        height: 100%;
+        display: block;
+      }
+      pre {
+        font-weight: bold;
+        z-index: 9999999;
+      }
+      code {
+        position: absolute;
+        right: 2em;
+        bottom: 1.5em;
+        pointer-events: none;
+      }
+
+      .buttons {
+        position: absolute;
+        right: 1em;
+        top: 0.75em;
+        z-index: 100;
+      }
+    </style>
+
+    <title>GunDB Graph Live</title>
+
+    <script type="text/javascript">
+      //<![CDATA[
+      window.onload = function() {
+        localStorage.clear();
+        window.gEx1 = {
+          setUpExample: function() {
+            g.get("person/john").put({ name: "john doe", gender: "m" });
+            g.get("person/anne").put({ name: "anne smith", gender: "f" });
+            window.refresh();
+          },
+          setUpCouple: function() {
+            g.get("person/anne")
+              .get("married_to")
+              .put(g.get("person/john"));
+            window.refresh();
+          },
+          setUpChild: function() {
+            g.get("person/max").put({ name: "max doe", gender: "m" });
+            g.get("person/min").put({ name: "min doe", gender: "f" });
+            g.get("set/children").set(g.get("person/max"));
+            g.get("set/children").set(g.get("person/min"));
+            g.get("person/min")
+              .get("sibling_to")
+              .put(g.get("person/max"));
+            g.get("person/anne")
+              .get("children")
+              .put(g.get("set/children"));
+            g.get("person/john")
+              .get("children")
+              .put(g.get("set/children"));
+            window.refresh();
+          }
+        };
+
+        gSetup(false, true);
+
+        var con = new SimpleConsole({
+          placeholder: "Gun Console (g)",
+          handleCommand: function(command) {
+            try {
+              console.log(eval(command));
+              con.clear();
+              renderGraph();
+            } catch (error) {
+              con.error(error);
+            }
+          },
+          autofocus: true, // if the console is to be the primary interface of the page
+          storageID: "app-console"
+        });
+
+        // add the console to the page
+        document.body.appendChild(con.element);
+
+        // show any uncaught errors
+        con.handleUncaughtErrors();
+
+        window.resetData = function() {
+          g._.graph = {};
+          gi = gIntrospect(g);
+          renderGraph = gGraph(g, gi, "#graph");
+        };
+
+        window.logData = function() {
+          gi.logAll();
+        };
+
+        window.refresh = function() {
+          setTimeout(function() {
+            renderGraph();
+          }, 500);
+        };
+
+        setTimeout(function() {
+          var gi = gIntrospect(g);
+          window.gi = gi;
+          window.renderGraph = gGraph(g, gi, "#graph");
+        }, 100);
+        
+      }; //]]>
+    </script>
+  </head>
+
+  <body>
+    <a href="https://github.com/lmangani/gun-scape"
+      ><img
+        style="position: absolute; top: 0; left: 0; border: 0;"
+        src="https://camo.githubusercontent.com/8b6b8ccc6da3aa5722903da7b58eb5ab1081adee/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6f72616e67655f6666373630302e706e67"
+        alt="Fork me on GitHub"
+        data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png"
+    /></a>
+
+    <div id="graph"></div>
+
+    <div class="buttons">
+      <button onclick="window.gEx1.setUpExample()">Add Pair</button>
+      <button onclick="window.gEx1.setUpCouple()">Join Pair</button>
+      <button onclick="window.gEx1.setUpChild()">Clone Pair</button> |
+      <button onclick="renderGraph()">Refresh</button>
+      <!-- <button onclick="window.logData()">Log</button> -->
+      <button onclick="window.resetData()">Clear</button>
+    </div>
+
+    <code
+      >Scroll to Zoom. Example Syntax:
+      <pre>
+g.get('person/me').put({name: 'Lorenzo'});
+        </pre
+      ></code
+    >
+
+    <script>
+      // tell the embed parent frame the height of the content
+      if (window.parent && window.parent.parent) {
+        window.parent.parent.postMessage(
+          [
+            "resultsFrame",
+            {
+              height: document.body.getBoundingClientRect().height,
+              slug: "ca4womwf"
+            }
+          ],
+          "*"
+        );
+      }
+    </script>
+  </body>
+</html>
+
 	
   <div id="graph"></div>
 
