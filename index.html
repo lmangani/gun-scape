@@ -91,9 +91,10 @@ var con = new SimpleConsole({
 		try {
 			console.log(eval(command));
 			con.clear();
-                        renderGraph(); 
+                        window.refresh();
 		} catch(error) {
 			con.error(error);
+			window.refresh();
 		}
 	},
 	autofocus: true, // if the console is to be the primary interface of the page
